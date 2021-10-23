@@ -55,7 +55,7 @@ end
 ---User command modules to generate a handler, then set it as the message's handler.
 ---@param msgType string @message type
 ---@param cmdConf table  @modules to handle the message
----@param ret? boolean @default is true, whether to call skynet.ignoreret
+---@param ret? boolean @default is true, whether to respond to source
 ---@param session? boolean @default is false, whether to call command function with sessionid
 function service.setMessageModules(msgType, cmdConf, ret, session)
   service.enableMessage(msgType)
@@ -67,7 +67,7 @@ end
 ---User command tables to generate a handler, then set it as the message's handler.
 ---@param msgType string @message type
 ---@param cmds table  @table of command functions to handle the message
----@param ret? boolean @default is true, whether to call skynet.ignoreret
+---@param ret? boolean @default is true, whether to respond to source
 ---@param session? boolean @default is false, whether to call command function with sessionid
 function service.setMessageCmds(msgType, cmds, ret, session)
   ret = ret == nil and true or ret -- default is true
