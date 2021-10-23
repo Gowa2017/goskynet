@@ -1,5 +1,5 @@
-local floor  = math.floor
-local smatch = string.match
+local floor    = math.floor
+local smatch   = string.match
 --- 时间模块，调用 skynet 来获取对应的时间
 --- skynet 有几个和 时间相关的 API
 --- skynet 的内部时钟精度为 1/100 秒，也就是 10ms， 0.01秒，我们把他叫做一个 tick
@@ -7,7 +7,7 @@ local smatch = string.match
 ---* skynet.time() 返回以秒为单位的 UTC 时间，时间上等价为 skynet.now()/100 + skynet.starttime()，精度为小数点两位
 ---* skynet.starttime() 返回 skynet节点进程启动的 UTC 时间，秒为单位
 ---* skynet.hpc() 如果你需要做性能分析，可以使用 skynet.hpc ，它会返回精度为 ns （1000000000 分之一 秒）的 64 位整数
-local time   = {}
+local time     = {}
 
 -- local skynet = require("skynet")
 -- ---返回当前的 UTC 时间，秒
@@ -51,5 +51,13 @@ function time.datestr2time(date)
     min   = m,
     sec   = s,
   })
+end
+local weekdays = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" }
+---返回是周几，周一就是星期一，周日就是星期七
+---@param ti? number # time in second default current time
+---@return number
+function time.weekday(ti)
+  local weekdayName = os.date("%b", ti or os.time())
+  return weekdays[weekdayName]
 end
 return time
