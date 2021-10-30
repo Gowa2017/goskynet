@@ -34,8 +34,7 @@ local function update()
   end
 end
 
-function M.create()
-  if T then return end
+local function create()
   timerCount = 0
   T = Ltimer.create(skynet.now())
   local function cb()
@@ -44,14 +43,13 @@ function M.create()
   end
   cb()
 end
+function M.start()
+  if T then return end
+  create()
+end
 
 local function addTimer(ti, cb, loop)
-  local t = {
-    id   = genHandle(),
-    ti   = ti,
-    cb   = cb,
-    loop = loop
-  }
+  local t = { id   = genHandle(), ti   = ti, cb   = cb, loop = loop }
   timers[#timers + 1] = t
   T:add(t.id, t.ti)
 end
@@ -59,13 +57,18 @@ end
 ---添加间隔执行的定时器
 ---@param interval integer 单位是1/100秒
 ---@param func fun()
-function M.period(interval, func) addTimer(interval, func, true) end
+function M.period(interval, func)
+  addTimer(interval, func, true)
+end
 
 ---@param delay integer 单位是1/100秒
 ---@param func fun()
-function M.once(delay, func) addTimer(delay, func, false) end
+function M.once(delay, func)
+  addTimer(delay, func, false)
+end
 
-function M.count() return timerCount end
+function M.count()
+  return timerCount
+end
 
-function M.isStart() return T end
 return M
