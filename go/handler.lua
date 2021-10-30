@@ -38,16 +38,20 @@ return function(cmdTable, ret, session)
                      string.format("CMD %s not found", cmd))
     local r
     --- need session as first arg, like gate send to other service
-    if session then
-      r = f(id, ...)
-    else
-      r = f(...)
-    end
     --- if I need to ret to the source service.
     if ret then
-      skynet.retpack(r)
+      if session then
+        skynet.retpack(f(id, ...))
+      else
+        skynet.retpack(f(...))
+      end
     else
       skynet.ignoreret()
+      if session then
+        f(id, ...)
+      else
+        f(...)
+      end
     end
   end
   return handler
