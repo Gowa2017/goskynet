@@ -26,9 +26,7 @@ end
 function import(module)
   if modules[module] then return modules[module] end
   local path   = sgsub(module, "%.", "/") .. ".lua"
-  local env    = setmetatable({}, {
-    __index = _G
-  })
+  local env    = setmetatable({}, { __index = _G })
   --- do this, the env only modified by the global vars.
   local f, err = loadfileEX(path, "bt", env)
   assert(f, sfmt("import file %s err:%s", module, err))

@@ -24,12 +24,20 @@ function M.log(sMsg, ...)
   skynet.error(s)
 end
 
-function M.error(sMsg, ...) logFile("ERROR", sMsg, ...) end
+function M.error(sMsg, ...)
+  logFile("ERROR", sMsg, ...)
+end
 
-function M.info(sMsg, ...) logFile("INFO", sMsg, ...) end
+function M.info(sMsg, ...)
+  logFile("INFO", sMsg, ...)
+end
 
-function M.warning(sMsg, ...) logFile("WARNING", sMsg, ...) end
+function M.warning(sMsg, ...)
+  logFile("WARNING", sMsg, ...)
+end
 
-function M.debug(sMsg, ...) logFile("DEBUG", sMsg, ...) end
+function M.debug(sMsg, ...)
+  logFile("DEBUG", sMsg, ...)
+end
 
 return M

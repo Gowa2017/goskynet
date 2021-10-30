@@ -12,14 +12,20 @@ local time     = {}
 local skynet   = require("skynet")
 ---返回当前的 UTC 时间，秒
 ---@return integer
-function time.second() return floor(skynet.time()) end
+function time.second()
+  return floor(skynet.time())
+end
 ---返回当前的 UTC 时间，毫秒
 ---@return integer
-function time.msecond() return skynet.starttime() * 1000 + skynet.now() * 10 end
+function time.msecond()
+  return skynet.starttime() * 1000 + skynet.now() * 10
+end
 
 ---返回进程启动了多少秒
 ---@return integer
-function time.started() return skynet.now() // 100 end
+function time.started()
+  return skynet.now() // 100
+end
 
 ---计算两个时间间相差了多久， 以秒单位
 ---@param t1 integer # 秒
@@ -39,7 +45,9 @@ function time.diff(t1, t2, unit)
   error("unit must one of s, m, h, d, w, y")
 end
 
-function time.strftime(ti, fmt) return os.date(fmt, ti) end
+function time.strftime(ti, fmt)
+  return os.date(fmt, ti)
+end
 
 function time.datestr2time(date)
   local y, M, d, h, m, s = smatch(date, "(%d+)-(%d+)-(%d+) (%d+):(%d+):(%d+)")
@@ -57,7 +65,9 @@ end
 ---返回周数
 ---@param ti? number # time in second default current time
 ---@return number
-function time.week(ti) return tonumber(os.date("%W", ti or os.time())) end
+function time.week(ti)
+  return tonumber(os.date("%W", ti or os.time()))
+end
 
 local weekdays = { Mon = 1, Tue = 2, Wed = 3, Thu = 4, Fri = 5, Sat = 6,
 Sun = 7 }
@@ -72,27 +82,39 @@ end
 ---返回年份
 ---@param ti number #time in second
 ---@return number
-function time.year(ti) return tonumber(os.date("%Y", ti or os.time())) end
+function time.year(ti)
+  return tonumber(os.date("%Y", ti or os.time()))
+end
 
 ---返回月份
 ---@param ti number #time in second
 ---@return number
-function time.month(ti) return tonumber(os.date("%m", ti or os.time())) end
+function time.month(ti)
+  return tonumber(os.date("%m", ti or os.time()))
+end
 
-function time.monthday(ti) return tonumber(os.date("%d", ti or os.time())) end
+function time.monthday(ti)
+  return tonumber(os.date("%d", ti or os.time()))
+end
 
 ---返回几点了
 ---@param ti number #time in second
 ---@return number
-function time.hour(ti) return tonumber(os.date("%H", ti or os.time())) end
+function time.hour(ti)
+  return tonumber(os.date("%H", ti or os.time()))
+end
 
 ---返回分钟
 ---@param ti number #time in second
 ---@return number
-function time.min(ti) return tonumber(os.date("%M", ti or os.time())) end
+function time.min(ti)
+  return tonumber(os.date("%M", ti or os.time()))
+end
 
 ---返回秒
 ---@param ti number #time in second
 ---@return number
-function time.sec(ti) return tonumber(os.date("%S", ti or os.time())) end
+function time.sec(ti)
+  return tonumber(os.date("%S", ti or os.time()))
+end
 return time
