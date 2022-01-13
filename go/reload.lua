@@ -5,7 +5,9 @@ local modules = {}
 
 local function clone(t)
   local res = {}
-  for k, v in pairs(t) do res[k] = v end
+  for k, v in pairs(t) do
+    res[k] = v
+  end
   return res
 end
 
@@ -24,7 +26,9 @@ end
 ---@param module string like service.auth.test or auth.test
 ---@return table
 function import(module)
-  if modules[module] then return modules[module] end
+  if modules[module] then
+    return modules[module]
+  end
   local path   = sgsub(module, "%.", "/") .. ".lua"
   local env    = setmetatable({}, { __index = _G })
   --- do this, the env only modified by the global vars.
@@ -36,7 +40,9 @@ function import(module)
 end
 
 local function merge(dst, src, cache)
-  if cache[dst] then return end
+  if cache[dst] then
+    return
+  end
   cache[dst] = true
   for k, v in pairs(src) do
     local oldValue = dst[k]
@@ -61,7 +67,11 @@ local function merge(dst, src, cache)
     end
   end
   -- clear element not in the new table
-  for k, _ in pairs(dst) do if not rawget(src, k) then dst[k] = nil end end
+  for k, _ in pairs(dst) do
+    if not rawget(src, k) then
+      dst[k] = nil
+    end
+  end
 end
 ---Reload a module from lua files.
 ---Local vars will not be update.

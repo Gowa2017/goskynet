@@ -1,6 +1,18 @@
 --- a global id generator. Every service can use this library
 --- Use skynet's tick number as timestamp, which unit is 1/100 S.
-local skynet          = require("skynet")
+local skynet         
+if SERVICE_NAME then
+  skynet = require("skynet")
+else
+  skynet = {
+    getenv = function(env)
+
+    end,
+    time   = function()
+      return os.time()
+    end,
+  }
+end
 --- this value from settings
 local serverBeginTime = tonumber(skynet.getenv("serverBeginTime")) or
                           skynet.time() * 100
